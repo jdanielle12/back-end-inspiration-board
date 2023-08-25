@@ -6,10 +6,14 @@ class Board(db.Model):
     description=db.Column(db.String)
     cards=db.relationship('Card', back_populates='Board')
     
+    #Creates response body
     def to_dict(self, cards=False):
         board_dict={
             'id': self.id,
             'title': self.title,
             'description': self.description}
-#Creates response body
+        
+        return board_dict
+        
+
 
