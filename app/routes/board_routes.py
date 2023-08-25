@@ -37,4 +37,23 @@ def create_board():
     
     return make_response(jsonify(board_dict), 201)
 
+@boards_bp.route("", methods=["GET"])
+def get_boards():
+    sort = request.args.get("sort")
+    
+    if sort == "asc":
+        boards = Board.query.order_by(Board.title.asc()).all()
+    else:
+        boards = Board.query.order_by(Board.title.desc()).all()
+        
+    boards_list = []
+    for board in boards:
+        boards_list.append(board.to_dict())
+    return jsonify(boards_list)
 
+# @boards_bp.route("/<id>", methods=["GET"])
+# def get_one_board(id):
+#     boards = validate_boards(id)
+#     board_dict = dict(board=boards.to_dict())
+    
+#     return make_response(jsonify(board_dict), 200)
