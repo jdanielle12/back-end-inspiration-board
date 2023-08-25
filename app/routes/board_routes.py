@@ -51,9 +51,9 @@ def get_boards():
         boards_list.append(board.to_dict())
     return jsonify(boards_list)
 
-# @boards_bp.route("/<id>", methods=["GET"])
-# def get_one_board(id):
-#     boards = validate_boards(id)
-#     board_dict = dict(board=boards.to_dict())
+@boards_bp.route("/<id>", methods=["GET"])
+def get_one_board(id):
+    boards = validate_boards(id)
+    board_dict = dict(board=boards.to_dict())
     
-#     return make_response(jsonify(board_dict), 200)
+    return make_response(jsonify(board_dict), 200)
