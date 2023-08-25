@@ -22,10 +22,12 @@ def validate_boards(id):
 def create_board():
     if request.method == "POST":
         request_body = request.get_json()
-        if "title" not in request_body:
+        if "title" not in request_body or "description" not in request_body:
             return make_response(jsonify({"details": "Invalid data"}), 400)
+        
     new_board = Board(
-        title = request_body["title"]
+        title = request_body["title"],
+        description = request_body["description"]
     )
     
     db.session.add(new_board)
@@ -33,3 +35,5 @@ def create_board():
     board_dict = dict(board=new_board.to_dict())
     
     return make_response(jsonify(board_dict), 201)
+
+
