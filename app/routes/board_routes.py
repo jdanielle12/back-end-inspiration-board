@@ -70,3 +70,17 @@ def update_board(id):
     
     board_dict = dict(board=boards.to_dict())
     return make_response(jsonify(board_dict), 200)
+
+@boards_bp.route("/<id>", methods=["DELETE"])
+def delete_one_board(id):
+    board = validate_boards(id)
+    
+    deleted_response = {
+        "details": f'Board {board.id} "{board.title}" successfully deleted'
+    }
+    
+    db.session.delete(board)
+    db.session.commit()
+    
+    return make_response(jsonify(deleted_response), 200)
+
