@@ -57,3 +57,16 @@ def get_one_board(id):
     board_dict = dict(board=boards.to_dict())
     
     return make_response(jsonify(board_dict), 200)
+
+@boards_bp.route("/<id>", methods=["PUT"])
+def update_board(id):
+    boards = validate_boards(id)
+    board_data = request.get_json()
+    
+    boards.title = board_data["title"]
+    boards.description = board_data["description"]
+    
+    db.session.commit()
+    
+    board_dict = dict(board=boards.to_dict())
+    return make_response(jsonify(board_dict), 200)
