@@ -4,7 +4,7 @@ class Board(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     title=db.Column(db.String)
     description=db.Column(db.String)
-    cards=db.relationship('Card', back_populates='Board')
+    cards=db.relationship('Card', back_populates='board', lazy=True)
     
     #Creates response body
     def to_dict(self, cards=False):
@@ -12,9 +12,6 @@ class Board(db.Model):
             'id': self.id,
             'title': self.title,
             'description': self.description}
-        
-        if cards == True:
-            board_dict.append(["cards"])
         
         return board_dict
         

@@ -5,9 +5,9 @@ class Card(db.Model):
     card_id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String)
     description = db.Column(db.String)
-    like_count = db.Column(db.Integer)
-    board_id = db.Column(db.Integer, db.ForeignKey("board.id"), nullable=True)
-    board = db.relationship("Board", back_populates="Card")
+    like_count = db.Column(db.Integer, default=0)
+    board = db.relationship("Board", back_populates="cards")
+    board_id = db.Column(db.Integer, db.ForeignKey("board.id"))
     
     def to_dict(self):
         card_dict = dict(
@@ -22,3 +22,9 @@ class Card(db.Model):
             
         return card_dict
     
+    @classmethod
+    def from_dict(cls, data_dict):
+        new_obj = cls(
+            description = data_dict["description"],
+        )
+        return new_obj

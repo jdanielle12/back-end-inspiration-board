@@ -85,3 +85,21 @@ def delete_one_board(id):
     
     return make_response(jsonify(deleted_response), 200)
 
+@boards_bp.route("/<id>", methods=["POST"])
+def add_cards_to_board(id):
+    board = validate_boards(id)
+    new_card = Card.from_dict(request.get_json())
+    
+    new_card.board_id = id
+    
+    db.session.add(new_card)
+    db.session.commit()
+    
+    response_body = dict(card = new_card.to_dict())
+    
+    
+    return jsonify(response_body), 200
+    
+    
+    
+
