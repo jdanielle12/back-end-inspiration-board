@@ -38,3 +38,17 @@ def create_card():
     card_dict = dict(card=new_card.to_dict())
     
     return make_response(jsonify(card_dict), 201)
+
+@cards_bp.route("/<card_id>", methods=["GET"])
+def get_cards():
+    sort = request.args.get("sort")
+    
+    if sort == "asc":
+        cards = Card.query.order_by(Card.title.asc()).all()
+    else:
+        cards = Card.query.order_by(Card.title.desc()).all()
+        
+    cards_list = []
+    for card in cards:
+        cards_list.append(card.to_dict())
+    return jsonify(cards_list)
