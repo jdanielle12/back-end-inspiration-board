@@ -75,4 +75,17 @@ def update_card(card_id):
     card_dict = dict(card=cards.to_dict())
     
     return make_response(jsonify(card_dict), 200)
+
+@cards_bp.route("/<card_id>", methods=["DELETE"])
+def delete_one_card(card_id):
+    card = validate_card(card_id)
     
+    deleted_response = {
+        "details": f'Card {card.card_id} "{card.title}" successfully deleted'
+    }
+    
+    db.session.delete(card)
+    db.session.commit()
+    
+    return make_response(jsonify(deleted_response), 200)
+
