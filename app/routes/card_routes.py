@@ -59,3 +59,20 @@ def get_one_card(card_id):
     card_dict = dict(card=cards.to_dict())
     
     return make_response(jsonify(card_dict), 200)
+
+@cards_bp.route("/<card_id>", methods=["PUT"])
+def update_card(card_id):
+    cards = validate_card(card_id)
+    card_data = request.get_json()
+    
+    cards.title = card_data["title"]
+    cards.description = card_data["description"]
+    cards.like_count = card_data["like_count"]
+    cards.board_id = card_data["board_id"]
+    
+    db.session.commit()
+    
+    card_dict = dict(card=cards.to_dict())
+    
+    return make_response(jsonify(card_dict), 200)
+    
