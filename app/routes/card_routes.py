@@ -39,7 +39,7 @@ def create_card():
     
     return make_response(jsonify(card_dict), 201)
 
-@cards_bp.route("/<card_id>", methods=["GET"])
+@cards_bp.route("", methods=["GET"])
 def get_cards():
     sort = request.args.get("sort")
     
