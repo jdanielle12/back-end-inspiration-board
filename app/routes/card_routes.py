@@ -52,3 +52,10 @@ def get_cards():
     for card in cards:
         cards_list.append(card.to_dict())
     return jsonify(cards_list)
+
+@cards_bp.route("/<card_id>", methods=["GET"])
+def get_one_card(card_id):
+    cards = validate_card(card_id)
+    card_dict = dict(card=cards.to_dict())
+    
+    return make_response(jsonify(card_dict), 200)
