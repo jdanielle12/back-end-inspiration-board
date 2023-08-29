@@ -101,6 +101,14 @@ def increase_likes(card_id):
     
     return make_response(jsonify(card_dict), 200)
 
+@cards_bp.route("/<card_id>/unlike_count", methods=["PATCH"])
+def decrease_likes(card_id):
+    cards = validate_card(card_id)
     
+    cards.like_count = cards.like_count - 1
     
+    db.session.commit()
     
+    card_dict = dict(card=cards.to_dict())
+    
+    return make_response(jsonify(card_dict), 200)
