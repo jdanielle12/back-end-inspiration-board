@@ -101,7 +101,7 @@ def add_cards_to_board(id):
     return jsonify(response_body), 200
     
 @boards_bp.route("/<id>/cards", methods=["GET"])
-def get_cards_by_card_id(id):
+def get_cards_by_board_id(id):
     validate_boards(id)
     
     cards = Card.query.filter(Card.board_id == id)
