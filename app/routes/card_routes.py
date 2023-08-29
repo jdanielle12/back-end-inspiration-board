@@ -89,3 +89,18 @@ def delete_one_card(card_id):
     
     return make_response(jsonify(deleted_response), 200)
 
+@cards_bp.route("/<card_id>/like_count", methods=["PATCH"])
+def increase_likes(card_id):
+    cards = validate_card(card_id)
+    
+    cards.like_count = cards.like_count + 1
+    
+    db.session.commit()
+    
+    card_dict = dict(card=cards.to_dict())
+    
+    return make_response(jsonify(card_dict), 200)
+
+    
+    
+    
