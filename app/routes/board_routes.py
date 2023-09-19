@@ -87,7 +87,7 @@ def delete_one_board(id):
 
 @boards_bp.route("/<id>", methods=["POST"])
 def add_cards_to_board(id):
-    board = validate_boards(id)
+    validate_boards(id)
     new_card = Card.from_dict(request.get_json())
     
     new_card.board_id = id

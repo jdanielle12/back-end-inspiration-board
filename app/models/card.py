@@ -25,6 +25,7 @@ class Card(db.Model):
     @classmethod
     def from_dict(cls, data_dict):
         new_obj = cls(
+            title = data_dict["title"],
             description = data_dict["description"],
         )
         return new_obj
