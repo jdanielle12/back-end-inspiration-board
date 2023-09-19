@@ -17,8 +17,8 @@ class Card(db.Model):
                 like_count=self.like_count,
                 board_id=self.board_id
             )
-        if self.board_id:
-            card_dict["board_id"] = self.board_id
+        # if self.board_id:
+        #     card_dict["board_id"] = self.board_id
             
         return card_dict
     
