@@ -45,6 +45,8 @@ def get_cards():
     
     if sort == "asc":
         cards = Card.query.order_by(Card.title.asc()).all()
+    elif sort == "highest likes":
+        cards = Card.query.order_by(Card.like_count.asc()).all()
     else:
         cards = Card.query.order_by(Card.title.desc()).all()
         
